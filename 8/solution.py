@@ -40,22 +40,19 @@ def get_correspondents(ten_numbers ):
     unique_3 = d3 - d2 - d1
 
     union = set.union(unique_1, unique_2, unique_3)
-    b_changed = possibilities['b'] != union
     possibilities['b'] = possibilities['b'] & union
-    possibilities['d'] = possibilities['d'] - possibilities['b'] if b_changed else possibilities['d']
-    possibilities['e'] = union - possibilities['b'] if b_changed else union
+    possibilities['d'] = possibilities['d'] - possibilities['b'] 
+    possibilities['e'] = union - possibilities['b'] 
 
     rest_intersection = intersection - possibilities['a']
-    d_changed = rest_intersection != possibilities['d'] 
-    possibilities['d'] = possibilities['d'] & rest_intersection if d_changed else possibilities['d'] 
-    possibilities['g'] = rest_intersection - possibilities['d'] if d_changed else rest_intersection
+    possibilities['d'] = possibilities['d'] & rest_intersection
+    possibilities['g'] = rest_intersection - possibilities['d']
 
     # 0 6 9
     a = [set(x) for x in ten_numbers[6:9]]
     ced = set.union(*a) - set.intersection(*a)
-    c_changed = ced != possibilities['c']
     possibilities['c'] = ced &  possibilities['c']
-    possibilities['f'] = possibilities['f'] - possibilities['c'] if c_changed else possibilities['f']
+    possibilities['f'] = possibilities['f'] - possibilities['c']
 
     return possibilities
 
