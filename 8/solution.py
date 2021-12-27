@@ -9,8 +9,6 @@ def problem_one(lines):
     output_numbers_merged = [item for sublist in output_numbers for item in sublist]
     print("Problem 1 = ", count_occurences(output_numbers_merged))
 
-
-
 def get_correspondents(ten_numbers ):
     possibilities = {}
     ten_numbers = sorted(ten_numbers, key=len)
@@ -87,8 +85,7 @@ def problem_two(lines, numbers_segments):
         line_output_number = int(line_output_number)
         total_sum += line_output_number
     return total_sum 
-            
-            
+             
 numbers_segments = {
     '0': {'a', 'b', 'c', 'e', 'f', 'g'},
     '1': {'c', 'f'},

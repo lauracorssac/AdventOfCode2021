@@ -1,26 +1,39 @@
 
-def find_total(day, initial_ages):
+def find_total(fishes, final_day):
 
-    n_fishes = len(initial_ages)
-    a = len()
-    number_closed_cicle = int(day / 7)
-    rest = day - number_closed_cicle * 7
+    if not fishes: 
+        return 0
 
-    for i in range(0, number_closed_cicle):
-        n_fishes += n_fishes
+    fish_age = fishes[0][0]
+    fish_birthday = fishes[0][1]
+    quantity = fishes[0][2]
+    day_next_birth = fish_birthday + fish_age + 1
 
-    extra_fish_minimal_age = rest - 1
-    extra_fishes = filter(lambda x: x <= extra_fish_minimal_age, initial_ages)
-    n_extra_fishes = len(extra_fishes)
+    children_counter = 0
+    while day_next_birth <= final_day:
+        children_counter += quantity
+        fishes.append((8,day_next_birth, quantity))
+        day_next_birth += 7
     
-    for fish in extra_fishes:
-        if fish < rest - 2:
-            n_extra_fishes += number_closed_cicle
+    return children_counter + find_total(fishes[1:], final_day)
     
-    return n_extra_fishes
 
+
+def pre_process_input(initial_ages):
+    dic = {}
+    for age in initial_ages:
+        if age not in dic:
+            dic[age] = 1
+        else:
+            dic[age] += 1
+    return [(x, 0, dic[x]) for x in dic]
+        
 file = open('input.txt', 'r')
 line = file.readline()
-initial_ages = list(map(int(line.split(','))))
-print("Problem 1 = ", find_total(80, initial_ages))
+initial_ages = list(map(int, line.split(',')))
+final_day = 30
+initial_ages_len = len(initial_ages)
+initial_ages = pre_process_input(initial_ages)
+print(initial_ages)
+print("Problem 1 = ",  initial_ages_len + find_total(initial_ages, final_day))
 
